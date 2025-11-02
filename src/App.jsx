@@ -1,7 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 50
+      setScrolled(isScrolled)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
   const skills = [
     'Leadership',
     'Business Strategy',
@@ -11,22 +22,25 @@ function App() {
   const projects = [
     {
       name: 'Ozysa Ltd',
-      description: 'E-commerce platform connecting local businesses and customers'
+      description: 'E-commerce platform connecting local businesses and customers',
+      icon: '🛒'
     },
     {
       name: 'Marketing Academy',
-      description: 'Offline and online courses for business owners'
+      description: 'Offline and online courses for business owners',
+      icon: '🎓'
     },
     {
       name: 'Star Face',
-      description: 'Creative brand promoting innovation in local markets'
+      description: 'Creative brand promoting innovation in local markets',
+      icon: '⭐'
     }
   ]
 
   return (
     <div className="App">
       {/* Navigation */}
-      <nav className="navbar">
+      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="container">
           <div className="nav-brand">Shawon Ahmed</div>
           <ul className="nav-links">
@@ -90,11 +104,15 @@ function App() {
         <div className="container">
           <h2 className="section-title">Skills</h2>
           <div className="skills-grid">
-            {skills.map((skill, index) => (
-              <div key={index} className="skill-card">
-                <h3>{skill}</h3>
-              </div>
-            ))}
+            {skills.map((skill, index) => {
+              const icons = ['👔', '📊', '🚀'];
+              return (
+                <div key={index} className="skill-card">
+                  <div style={{fontSize: '3rem', marginBottom: '1rem'}}>{icons[index]}</div>
+                  <h3>{skill}</h3>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -106,6 +124,7 @@ function App() {
           <div className="projects-grid">
             {projects.map((project, index) => (
               <div key={index} className="project-card">
+                <div style={{fontSize: '3rem', marginBottom: '1rem', display: 'inline-block'}}>{project.icon}</div>
                 <h3>{project.name}</h3>
                 <p>{project.description}</p>
               </div>
@@ -123,13 +142,13 @@ function App() {
               I'm always open to discussing new opportunities, innovative projects, 
               or potential collaborations. Feel free to reach out!
             </p>
-            <div className="contact-info">
+              <div className="contact-info">
               <div className="contact-item">
-                <span className="contact-icon">📧</span>
+                <div className="contact-icon">✉️</div>
                 <a href="mailto:shawon00650@gmail.com">shawon00650@gmail.com</a>
               </div>
               <div className="contact-item">
-                <span className="contact-icon">📱</span>
+                <div className="contact-icon">📞</div>
                 <a href="tel:+8801891484334">+880 1891-484334</a>
               </div>
             </div>
@@ -140,7 +159,7 @@ function App() {
                 rel="noopener noreferrer"
                 className="social-link linkedin"
               >
-                LinkedIn
+                <span>🔗</span> LinkedIn
               </a>
               <a 
                 href="https://www.facebook.com/ShawonKompany" 
@@ -148,7 +167,7 @@ function App() {
                 rel="noopener noreferrer"
                 className="social-link facebook"
               >
-                Facebook
+                <span>👥</span> Facebook
               </a>
             </div>
           </div>
