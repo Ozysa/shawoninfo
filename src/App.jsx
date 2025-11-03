@@ -1,13 +1,76 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
 
+const i18n = {
+  en: {
+    nav: { home: 'Home', about: 'About', skills: 'Skills', projects: 'Projects', contact: 'Contact' },
+    title: 'Md Shawon Ahmed',
+    subtitle: 'Chairman of Ozysa Ltd',
+    intro: 'Software Engineering Student | Business Leader | Digital Innovator',
+    getInTouch: 'Get In Touch',
+    viewProjects: 'View Projects',
+    aboutMe: 'About Me',
+    eduTitle: 'Education',
+    degree: 'BSc in Software Engineering',
+    university: 'Daffodil International University',
+    positionTitle: 'Current Position',
+    chairman: 'Chairman',
+    skillsTitle: 'Skills',
+    projectsTitle: 'Projects',
+    contactTitle: 'Get In Touch',
+    contactIntro: "I'm always open to discussing new opportunities, innovative projects, or potential collaborations. Feel free to reach out!",
+    live: 'Live'
+  },
+  bn: {
+    nav: { home: 'হোম', about: 'সম্পর্কে', skills: 'দক্ষতা', projects: 'প্রোজেক্ট', contact: 'যোগাযোগ' },
+    title: 'মোঃ শাওন আহমেদ',
+    subtitle: 'ওজাইসা লিমিটেডের চেয়ারম্যান',
+    intro: 'সফটওয়ার ইঞ্জিনিয়ারিং শিক্ষার্থী | ব্যবসায়িক নেতা | ডিজিটাল উদ্ভাবক',
+    getInTouch: 'যোগাযোগ করুন',
+    viewProjects: 'প্রোজেক্ট দেখুন',
+    aboutMe: 'আমার সম্পর্কে',
+    eduTitle: 'শিক্ষা',
+    degree: 'বিএসসি ইন সফটওয়ার ইঞ্জিনিয়ারিং',
+    university: 'ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটি',
+    positionTitle: 'বর্তমান পদ',
+    chairman: 'চেয়ারম্যান',
+    skillsTitle: 'দক্ষতা',
+    projectsTitle: 'প্রোজেক্ট',
+    contactTitle: 'যোগাযোগ করুন',
+    contactIntro: 'নতুন সুযোগ, বিকাশকারী প্রকল্প বা সহযোগিতা নিয়ে আলোচনা করতে সর্বদা উন্মুক্ত। নির্দ্বিধায় যোগাযোগ করুন!',
+    live: 'লাইভ'
+  },
+  ur: {
+    nav: { home: 'ہوم', about: 'متعلق', skills: 'مہارتیں', projects: 'پراجیکٹس', contact: 'رابطہ' },
+    title: 'مد شاہون احمد',
+    subtitle: 'اوزیسا لمیٹڈ کے چیئرمین',
+    intro: 'سافٹ ویئر انجینئرنگ کے طالب علم | کاروباری رہنما | ڈیجیٹل موجد',
+    getInTouch: 'رابطہ کریں',
+    viewProjects: 'پراجیکٹس دیکھیں',
+    aboutMe: 'میرے بارے میں',
+    eduTitle: 'تعلیم',
+    degree: 'بی ایس سی اِن سافٹ ویئر انجینئرنگ',
+    university: 'ڈیفودیل انٹرنیشنل یونیورسٹی',
+    positionTitle: 'موجودہ عہدہ',
+    chairman: 'چیئرمین',
+    skillsTitle: 'مہارتیں',
+    projectsTitle: 'پراجیکٹس',
+    contactTitle: 'رابطہ کریں',
+    contactIntro: 'نئے مواقع، جدید پراجیکٹس یا تعاون پر بات کے لیے ہمیشہ دستیاب ہوں۔ بلا جھجھک رابطہ کریں!',
+    live: 'لائیو'
+  }
+}
+
 function App() {
   const [scrolled, setScrolled] = useState(false)
   const [theme, setTheme] = useState('system')
+  const [lang, setLang] = useState('en')
 
   useEffect(() => {
-    const saved = localStorage.getItem('theme') || 'system'
-    setTheme(saved)
+    const savedTheme = localStorage.getItem('theme') || 'system'
+    const savedLang = localStorage.getItem('lang') || 'en'
+    setTheme(savedTheme)
+    setLang(savedLang)
   }, [])
 
   useEffect(() => {
@@ -19,6 +82,11 @@ function App() {
   }, [theme])
 
   useEffect(() => {
+    document.documentElement.setAttribute('dir', lang === 'ur' ? 'rtl' : 'ltr')
+    localStorage.setItem('lang', lang)
+  }, [lang])
+
+  useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 50
       setScrolled(isScrolled)
@@ -27,6 +95,8 @@ function App() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const t = i18n[lang]
 
   const skills = [
     'Leadership',
@@ -56,7 +126,6 @@ function App() {
   ]
 
   const nextTheme = () => {
-    // cycle: system -> dark -> light -> system
     if (theme === 'system') return setTheme('dark')
     if (theme === 'dark') return setTheme('light')
     return setTheme('system')
@@ -66,23 +135,31 @@ function App() {
 
   return (
     <div className="App">
+      <div className="animated-bg" aria-hidden="true"></div>
       {/* Navigation */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="container">
-          <div className="nav-brand">Shawon Ahmed</div>
+          <div className="nav-brand">{t.title}</div>
           <ul className="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#home">{t.nav.home}</a></li>
+            <li><a href="#about">{t.nav.about}</a></li>
+            <li><a href="#skills">{t.nav.skills}</a></li>
+            <li><a href="#projects">{t.nav.projects}</a></li>
+            <li><a href="#contact">{t.nav.contact}</a></li>
           </ul>
-          <button className="theme-toggle" onClick={nextTheme} aria-label="Toggle theme">
-            <span className="theme-icon" role="img" aria-hidden="true">
-              {theme === 'dark' ? '🌙' : theme === 'light' ? '☀️' : '🖥️'}
-            </span>
-            <span className="theme-text">{themeLabel}</span>
-          </button>
+          <div className="toggles">
+            <div className="lang-toggle" role="group" aria-label="Language selector">
+              <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>EN</button>
+              <button className={`lang-btn ${lang === 'bn' ? 'active' : ''}`} onClick={() => setLang('bn')}>BN</button>
+              <button className={`lang-btn ${lang === 'ur' ? 'active' : ''}`} onClick={() => setLang('ur')}>UR</button>
+            </div>
+            <button className="theme-toggle" onClick={nextTheme} aria-label="Toggle theme">
+              <span className="theme-icon" role="img" aria-hidden="true">
+                {theme === 'dark' ? '🌙' : theme === 'light' ? '☀️' : '🖥️'}
+              </span>
+              <span className="theme-text">{themeLabel}</span>
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -91,16 +168,14 @@ function App() {
         <div className="container">
           <div className="hero-content">
             <div className="avatar">
-              <img src="/profile.jpg" alt="Shawon Ahmed" />
+              <img src="/profile.jpg" alt={t.title} />
             </div>
-            <h1 className="hero-title">Shawon Ahmed</h1>
-            <p className="hero-subtitle">Chairman of Ozysa Ltd</p>
-            <p className="hero-description">
-              Software Engineering Student | Business Leader | Digital Innovator
-            </p>
+            <h1 className="hero-title">{t.title}</h1>
+            <p className="hero-subtitle">{t.subtitle}</p>
+            <p className="hero-description">{t.intro}</p>
             <div className="hero-buttons">
-              <a href="#contact" className="btn btn-primary">Get In Touch</a>
-              <a href="#projects" className="btn btn-secondary">View Projects</a>
+              <a href="#contact" className="btn btn-primary">{t.getInTouch}</a>
+              <a href="#projects" className="btn btn-secondary">{t.viewProjects}</a>
             </div>
           </div>
         </div>
@@ -109,26 +184,27 @@ function App() {
       {/* About Section */}
       <section id="about" className="about">
         <div className="container">
-          <h2 className="section-title">About Me</h2>
+          <h2 className="section-title">{t.aboutMe}</h2>
           <div className="about-content">
             <div className="about-text">
               <p>
-                I am Shawon Ahmed, the Chairman of Ozysa Ltd, currently pursuing 
-                my Bachelor of Science in Software Engineering at Daffodil International University.
+                {lang === 'en' && 'I am Md Shawon Ahmed, the Chairman of Ozysa Ltd, currently pursuing my Bachelor of Science in Software Engineering at Daffodil International University.'}
+                {lang === 'bn' && 'আমি মোঃ শাওন আহমেদ, ওজাইসা লিমিটেডের চেয়ারম্যান। ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটিতে সফটওয়ার ইঞ্জিনিয়ারিংয়ে বিএসসি করছি।'}
+                {lang === 'ur' && 'میں مد شاہون احمد ہوں، اوزیسا لمیٹڈ کا چیئرمین، ڈیفودیل انٹرنیشنل یونیورسٹی سے سافٹ ویئر انجینئرنگ میں بی ایس سی کر رہا ہوں۔'}
               </p>
               <p>
-                With a passion for business leadership and digital transformation, 
-                I combine technical expertise with strategic vision to drive innovation 
-                and growth in the business world.
+                {lang === 'en' && 'With a passion for business leadership and digital transformation, I combine technical expertise with strategic vision to drive innovation and growth.'}
+                {lang === 'bn' && 'ব্যবসায়িক নেতৃত্ব ও ডিজিটাল রূপান্তরে আগ্রহ নিয়ে আমি প্রযুক্তিগত দক্ষতা ও কৌশলগত দৃষ্টি একত্রে প্রয়োগ করি।'}
+                {lang === 'ur' && 'کاروباری قیادت اور ڈیجیٹل ٹرانسفارمیشن کے شوق کے ساتھ میں تکنیکی مہارت کو اسٹریٹجک وژن کے ساتھ یکجا کرتا ہوں۔'}
               </p>
               <div className="education">
-                <h3>Education</h3>
-                <p><strong>BSc in Software Engineering</strong></p>
-                <p>Daffodil International University</p>
+                <h3>{t.eduTitle}</h3>
+                <p><strong>{t.degree}</strong></p>
+                <p>{t.university}</p>
               </div>
               <div className="position">
-                <h3>Current Position</h3>
-                <p><strong>Chairman</strong> - Ozysa Ltd</p>
+                <h3>{t.positionTitle}</h3>
+                <p><strong>{t.chairman}</strong> - Ozysa Ltd</p>
               </div>
             </div>
           </div>
@@ -138,7 +214,7 @@ function App() {
       {/* Skills Section */}
       <section id="skills" className="skills">
         <div className="container">
-          <h2 className="section-title">Skills</h2>
+          <h2 className="section-title">{t.skillsTitle}</h2>
           <div className="skills-grid">
             {skills.map((skill, index) => {
               const icons = ['👔', '📊', '🚀'];
@@ -156,10 +232,13 @@ function App() {
       {/* Projects Section */}
       <section id="projects" className="projects">
         <div className="container">
-          <h2 className="section-title">Projects</h2>
+          <h2 className="section-title">{t.projectsTitle}</h2>
           <div className="projects-grid">
             {projects.map((project, index) => (
               <a key={index} className="project-card" href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name}`}>
+                <div className="project-top">
+                  <div className="live-badge">{t.live}</div>
+                </div>
                 <div style={{fontSize: '3rem', marginBottom: '1rem', display: 'inline-block'}}>{project.icon}</div>
                 <h3>{project.name}</h3>
                 <p>{project.description}</p>
@@ -172,12 +251,9 @@ function App() {
       {/* Contact Section */}
       <section id="contact" className="contact">
         <div className="container">
-          <h2 className="section-title">Get In Touch</h2>
+          <h2 className="section-title">{t.contactTitle}</h2>
           <div className="contact-content">
-            <p className="contact-intro">
-              I'm always open to discussing new opportunities, innovative projects, 
-              or potential collaborations. Feel free to reach out!
-            </p>
+            <p className="contact-intro">{t.contactIntro}</p>
             <div className="contact-info">
               <div className="contact-item">
                 <div className="contact-icon">✉️</div>
@@ -213,7 +289,7 @@ function App() {
       {/* Footer */}
       <footer className="footer">
         <div className="container">
-          <p>&copy; 2024 Shawon Ahmed. All rights reserved.</p>
+          <p>&copy; 2024 {t.title}. All rights reserved.</p>
         </div>
       </footer>
     </div>

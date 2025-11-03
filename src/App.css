@@ -775,6 +775,93 @@ section {
   }
 }
 
+.animated-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(800px 600px at 15% 10%, rgba(99,102,241,0.12), transparent 60%),
+    radial-gradient(900px 700px at 85% 80%, rgba(139,92,246,0.12), transparent 60%),
+    radial-gradient(700px 500px at 50% 90%, rgba(34,211,238,0.10), transparent 60%);
+  animation: float-bg 18s ease-in-out infinite alternate;
+}
+:root.dark .animated-bg {
+  background:
+    radial-gradient(800px 600px at 15% 10%, rgba(99,102,241,0.20), transparent 60%),
+    radial-gradient(900px 700px at 85% 80%, rgba(139,92,246,0.20), transparent 60%),
+    radial-gradient(700px 500px at 50% 90%, rgba(34,211,238,0.18), transparent 60%);
+}
+@keyframes float-bg {
+  0% { transform: translateY(0) scale(1); filter: hue-rotate(0deg); }
+  100% { transform: translateY(-20px) scale(1.02); filter: hue-rotate(20deg); }
+}
+/* ensure content above bg */
+.App, .navbar, section, .footer { position: relative; z-index: 1; }
+
+/* Toggles group */
+.toggles {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.lang-toggle {
+  display: inline-flex;
+  background: var(--bg-white);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+:root.dark .lang-toggle {
+  background: #0f1629;
+  border-color: rgba(148,163,184,0.15);
+}
+.lang-btn {
+  appearance: none;
+  background: transparent;
+  color: var(--text-dark);
+  border: 0;
+  padding: 0.45rem 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.lang-btn.active {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: #fff;
+}
+.lang-btn:not(.active):hover {
+  background: rgba(0,0,0,0.04);
+}
+:root.dark .lang-btn:not(.active):hover {
+  background: rgba(255,255,255,0.06);
+}
+
+/* Live badge */
+.project-top {
+  display: flex;
+  justify-content: flex-end;
+}
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #0f172a;
+  background: linear-gradient(135deg, #fcd34d, #f59e0b);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35);
+}
+:root.dark .live-badge { color: #0b1220; }
+
+/* Minor RTL tweaks */
+html[dir='rtl'] .project-card h3::before { right: 0; left: auto; }
+html[dir='rtl'] .project-card h3 { padding-right: 1.5rem; padding-left: 0; }
+html[dir='rtl'] .contact-item { direction: rtl; }
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .container {
