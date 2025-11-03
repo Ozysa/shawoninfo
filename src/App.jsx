@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import './App.css'
 import SkillDetail from './pages/SkillDetail'
+import SplashScreen from './components/SplashScreen'
 
 const i18n = {
   en: {
@@ -283,6 +284,7 @@ function Home({ t, lang, setLang, scrolled }) {
 function App() {
   const [scrolled, setScrolled] = useState(false)
   const [lang, setLang] = useState('en')
+  const [showSplash, setShowSplash] = useState(true)
 
   useEffect(() => {
     const savedLang = localStorage.getItem('lang') || 'en'
@@ -306,10 +308,15 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const handleSplashFinish = () => {
+    setShowSplash(false)
+  }
+
   const t = i18n[lang]
 
   return (
     <div className="App">
+      {showSplash && <SplashScreen onFinish={handleSplashFinish} />}
       <div className="animated-bg" aria-hidden="true"></div>
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="container">
