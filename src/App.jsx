@@ -3,6 +3,20 @@ import './App.css'
 
 function App() {
   const [scrolled, setScrolled] = useState(false)
+  const [theme, setTheme] = useState('system')
+
+  useEffect(() => {
+    const saved = localStorage.getItem('theme') || 'system'
+    setTheme(saved)
+  }, [])
+
+  useEffect(() => {
+    const root = document.documentElement
+    root.classList.remove('dark', 'light')
+    if (theme === 'dark') root.classList.add('dark')
+    if (theme === 'light') root.classList.add('light')
+    localStorage.setItem('theme', theme)
+  }, [theme])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,6 +27,7 @@ function App() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
   const skills = [
     'Leadership',
     'Business Strategy',
@@ -37,6 +52,15 @@ function App() {
     }
   ]
 
+  const nextTheme = () => {
+    // cycle: system -> dark -> light -> system
+    if (theme === 'system') return setTheme('dark')
+    if (theme === 'dark') return setTheme('light')
+    return setTheme('system')
+  }
+
+  const themeLabel = theme === 'system' ? 'System' : theme === 'dark' ? 'Dark' : 'Light'
+
   return (
     <div className="App">
       {/* Navigation */}
@@ -50,6 +74,12 @@ function App() {
             <li><a href="#projects">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
+          <button className="theme-toggle" onClick={nextTheme} aria-label="Toggle theme">
+            <span className="theme-icon" role="img" aria-hidden="true">
+              {theme === 'dark' ? '🌙' : theme === 'light' ? '☀️' : '🖥️'}
+            </span>
+            <span className="theme-text">{themeLabel}</span>
+          </button>
         </div>
       </nav>
 
@@ -142,7 +172,7 @@ function App() {
               I'm always open to discussing new opportunities, innovative projects, 
               or potential collaborations. Feel free to reach out!
             </p>
-              <div className="contact-info">
+            <div className="contact-info">
               <div className="contact-item">
                 <div className="contact-icon">✉️</div>
                 <a href="mailto:shawon00650@gmail.com">shawon00650@gmail.com</a>
