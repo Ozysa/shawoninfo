@@ -159,52 +159,45 @@ function Home({ t, lang, setLang, scrolled }) {
       {/* Education Journey Section */}
       <section id="education-journey" className="edu-journey">
         <div className="container">
-          <h2 className="section-title">Education Journey</h2>
-          <div className="edu-wrap">
-            <svg className="edu-path" viewBox="0 0 600 1000" preserveAspectRatio="none" aria-hidden="true">
-              <defs>
-                <linearGradient id="glow" x1="0" x2="1" y1="0" y2="1">
-                  <stop offset="0%" stopColor="#22d3ee"/>
-                  <stop offset="50%" stopColor="#6366f1"/>
-                  <stop offset="100%" stopColor="#8b5cf6"/>
-                </linearGradient>
-              </defs>
-              <path d="M300 0 C300 120 340 180 340 260 C340 380 260 480 300 600 C280 680 280 730 280 780 C280 820 300 900 300 980" stroke="url(#glow)" strokeWidth="6" fill="none" strokeLinecap="round" />
-              <path d="M300 0 C300 120 340 180 340 260 C340 380 260 480 300 600 C280 680 280 730 280 780 C280 820 300 900 300 980" stroke="rgba(34,211,238,0.4)" strokeWidth="14" fill="none" strokeLinecap="round" filter="blur(2px)" />
-            </svg>
-
-            <div className="edu-node edu-node--top">
-              <div className="node-ring"></div>
-              <div className="node-dot"></div>
+          <h2 className="section-title">Educational Journey</h2>
+          <div className="timeline-wrapper">
+            <div className="timeline-line"></div>
+            
+            <div className="timeline-item timeline-item--left">
+              <div className="timeline-content">
+                <div className="timeline-node timeline-node--cyan"></div>
+                <a href="https://daffodilvarsity.edu.bd/" target="_blank" rel="noopener noreferrer" className="timeline-card">
+                  <h3>B.Sc. in Software Engineering</h3>
+                  <p>Daffodil International University, Ashulia</p>
+                  <p className="timeline-time">2023 to Now</p>
+                </a>
+                <div className="timeline-connector timeline-connector--right"></div>
+              </div>
             </div>
 
-            <a href="https://daffodilvarsity.edu.bd/" target="_blank" rel="noopener noreferrer" className="edu-card edu-card--bsc">
-              <h3>B.Sc. in Software Engineering</h3>
-              <p>Daffodil International University, Ashulia</p>
-              <p className="edu-time">2023 to Now</p>
-            </a>
-
-            <div className="edu-node edu-node--mid">
-              <div className="node-ring ring-blue"></div>
-              <div className="node-dot dot-blue"></div>
+            <div className="timeline-item timeline-item--right">
+              <div className="timeline-content">
+                <div className="timeline-node timeline-node--purple"></div>
+                <a href="https://sristy.edu.bd/college/" target="_blank" rel="noopener noreferrer" className="timeline-card">
+                  <h3>Higher Secondary School Certificate (HSC)</h3>
+                  <p>Sristy College of Tangail</p>
+                  <p className="timeline-time">2019 to 2021</p>
+                </a>
+                <div className="timeline-connector timeline-connector--left"></div>
+              </div>
             </div>
 
-            <a href="https://sristy.edu.bd/college/" target="_blank" rel="noopener noreferrer" className="edu-card edu-card--hsc">
-              <h3>Higher Secondary School Certificate (HSC)</h3>
-              <p>Sristy College of Tangail</p>
-              <p className="edu-time">2019 to 2021</p>
-            </a>
-
-            <div className="edu-node edu-node--bottom">
-              <div className="node-ring ring-blue"></div>
-              <div className="node-dot dot-blue"></div>
+            <div className="timeline-item timeline-item--left">
+              <div className="timeline-content">
+                <div className="timeline-node timeline-node--purple"></div>
+                <a href="https://sristy.edu.bd/academic/" target="_blank" rel="noopener noreferrer" className="timeline-card">
+                  <h3>Secondary School Certificate (SSC)</h3>
+                  <p>Sristy Academic School, Tangail</p>
+                  <p className="timeline-time">2017 to 2019</p>
+                </a>
+                <div className="timeline-connector timeline-connector--right"></div>
+              </div>
             </div>
-
-            <a href="https://sristy.edu.bd/academic/" target="_blank" rel="noopener noreferrer" className="edu-card edu-card--ssc">
-              <h3>Secondary School Certificate (SSC)</h3>
-              <p>Sristy Academic School, Tangail</p>
-              <p className="edu-time">2017 to 2019</p>
-            </a>
           </div>
         </div>
       </section>
@@ -231,9 +224,6 @@ function Home({ t, lang, setLang, scrolled }) {
           <div className="projects-grid">
             {projects.map((project, index) => (
               <a key={index} className="project-card" href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name}`}>
-                <div className="project-top">
-                  <div className="live-badge">{t.live}</div>
-                </div>
                 <div style={{fontSize: '3rem', marginBottom: '1rem', display: 'inline-block'}}>{project.icon}</div>
                 <h3>{project.name}</h3>
                 <p>{project.description}</p>
