@@ -81,17 +81,31 @@ function Home({ t, lang, setLang, scrolled }) {
       {/* Hero Section */}
       <section id="home" className="hero">
         <div className="container">
-          <div className="hero-content">
-            <div className="avatar">
-              <img src="/profile.jpg" alt={t.title} />
+          <div className="hero-grid">
+            <div className="hero-content">
+              <div className="avatar">
+                <img src="/profile.jpg" alt={t.title} />
+              </div>
+              <h1 className="hero-title">{t.title}</h1>
+              <p className="hero-subtitle">{t.subtitle}</p>
+              <p className="hero-description">{t.intro}</p>
+              <div className="hero-buttons">
+                <a href="#contact" className="btn btn-primary">{t.getInTouch}</a>
+                <a href="#projects" className="btn btn-secondary">{t.viewProjects}</a>
+              </div>
             </div>
-            <h1 className="hero-title">{t.title}</h1>
-            <p className="hero-subtitle">{t.subtitle}</p>
-            <p className="hero-description">{t.intro}</p>
-            <div className="hero-buttons">
-              <a href="#contact" className="btn btn-primary">{t.getInTouch}</a>
-              <a href="#projects" className="btn btn-secondary">{t.viewProjects}</a>
-            </div>
+
+            <a className="hero-card" href="https://www.ozysa.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Ozysa Ltd">
+              <div className="hero-card-icon">💼</div>
+              <div className="hero-card-title">Ozysa Ltd</div>
+              <div className="hero-card-sub">Leading Digital Innovation</div>
+              <div className="hero-card-glow" aria-hidden="true"></div>
+            </a>
+          </div>
+
+          <div className="scroll-hint">
+            <span>Scroll Down</span>
+            <div className="chevron">⌄</div>
           </div>
         </div>
       </section>
