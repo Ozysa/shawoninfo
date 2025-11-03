@@ -1288,6 +1288,16 @@ html[dir='rtl'] .contact-item { direction: rtl; }
   box-shadow: 0 20px 60px rgba(0,0,0,0.4);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  text-decoration: none;
+  display: block;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.edu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  border-color: rgba(34,211,238,0.4);
 }
 
 .edu-card h3 { color: #22e58b; margin-bottom: 0.6rem; }

@@ -178,33 +178,33 @@ function Home({ t, lang, setLang, scrolled }) {
               <div className="node-dot"></div>
             </div>
 
-            <div className="edu-card edu-card--bsc">
+            <a href="https://daffodilvarsity.edu.bd/" target="_blank" rel="noopener noreferrer" className="edu-card edu-card--bsc">
               <h3>B.Sc. in Software Engineering</h3>
               <p>Daffodil International University, Ashulia</p>
               <p className="edu-time">2023 to Now</p>
-            </div>
+            </a>
 
             <div className="edu-node edu-node--mid">
               <div className="node-ring ring-blue"></div>
               <div className="node-dot dot-blue"></div>
             </div>
 
-            <div className="edu-card edu-card--hsc">
+            <a href="https://sristy.edu.bd/college/" target="_blank" rel="noopener noreferrer" className="edu-card edu-card--hsc">
               <h3>Higher Secondary School Certificate (HSC)</h3>
               <p>Sristy College of Tangail</p>
               <p className="edu-time">2019 to 2021</p>
-            </div>
+            </a>
 
             <div className="edu-node edu-node--bottom">
               <div className="node-ring ring-blue"></div>
               <div className="node-dot dot-blue"></div>
             </div>
 
-            <div className="edu-card edu-card--ssc">
+            <a href="https://sristy.edu.bd/academic/" target="_blank" rel="noopener noreferrer" className="edu-card edu-card--ssc">
               <h3>Secondary School Certificate (SSC)</h3>
               <p>Sristy Academic School, Tangail</p>
               <p className="edu-time">2017 to 2019</p>
-            </div>
+            </a>
           </div>
         </div>
       </section>
