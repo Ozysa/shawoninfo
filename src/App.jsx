@@ -71,9 +71,9 @@ function Home({ t, lang, setLang, scrolled }) {
   ]
 
   const projects = [
-    { name: 'Ozysa Ltd', description: 'E-commerce platform connecting local businesses and customers', icon: '🛒', url: '#' },
+    { name: 'Ozysa Ltd', description: 'E-commerce platform connecting local businesses and customers', icon: '🛒', url: 'https://www.ozysa.com/' },
     { name: 'Marketing Academy', description: 'Offline and online courses for business owners', icon: '🎓', url: '#' },
-    { name: 'Star Face', description: 'Creative brand promoting innovation in local markets', icon: '⭐', url: '#' }
+    { name: 'Star Face', description: 'Creative brand promoting innovation in local markets', icon: '⭐', url: 'https://www.facebook.com/profile.php?id=61581798161033' }
   ]
 
   return (
