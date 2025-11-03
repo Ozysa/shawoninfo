@@ -142,11 +142,13 @@
   padding: 4px;
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
 }
 .avatar img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background: #0b1220;
   border-radius: 50%;
   display: block;
 }
@@ -1216,4 +1218,82 @@ html[dir='rtl'] .contact-item { direction: rtl; }
 @media (max-width: 992px) {
   .hero-grid { grid-template-columns: 1fr; }
   .hero-card { order: 2; }
+}
+
+/* Education Journey */
+.edu-journey {
+  background: #05070d;
+  position: relative;
+  overflow: hidden;
+}
+
+.edu-wrap {
+  position: relative;
+  min-height: 620px;
+}
+
+.edu-path {
+  position: absolute;
+  left: 50%;
+  top: -40px;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 920px;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.edu-node {
+  position: absolute;
+  left: calc(50% - 10px);
+}
+.edu-node--top { top: 120px; }
+.edu-node--mid { top: 440px; left: calc(50% - 10px); }
+
+.node-ring {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid rgba(34,211,238,0.7);
+  box-shadow: 0 0 30px rgba(34,211,238,0.25);
+  transform: translate(-30px, -30px);
+}
+.node-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #22d3ee;
+  border: 3px solid #0b1220;
+  transform: translate(10px, -78px);
+  box-shadow: 0 0 18px rgba(34,211,238,0.8);
+}
+.ring-blue { border-color: rgba(99,102,241,0.7); box-shadow: 0 0 30px rgba(99,102,241,0.25); }
+.dot-blue { background: #6366f1; box-shadow: 0 0 18px rgba(99,102,241,0.8); }
+
+.edu-card {
+  position: absolute;
+  max-width: 520px;
+  padding: 1.5rem;
+  background: rgba(12,18,34,0.7);
+  border: 1px solid rgba(148,163,184,0.15);
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.edu-card h3 { color: #22e58b; margin-bottom: 0.6rem; }
+.edu-card p { color: rgba(255,255,255,0.85); margin: 0.25rem 0; }
+.edu-time { color: #cbd5e1; opacity: 0.9; font-weight: 600; }
+
+.edu-card--bsc { left: calc(50% - 20px); top: 210px; }
+.edu-card--hsc { right: calc(50% - 20px); top: 520px; }
+.edu-node--bottom { top: 780px; left: calc(50% - 10px); }
+.edu-card--ssc { left: calc(50% - 20px); top: 800px; }
+
+@media (max-width: 992px) {
+  .edu-path { display: none; height: auto; }
+  .edu-wrap { display: grid; gap: 1.25rem; }
+  .edu-card { position: relative; left: auto; right: auto; top: auto; }
+  .edu-node { display: none; }
 }

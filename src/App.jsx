@@ -84,7 +84,7 @@ function Home({ t, lang, setLang, scrolled }) {
           <div className="hero-grid">
             <div className="hero-content">
               <div className="avatar">
-                <img src="/profile.jpg" alt={t.title} />
+                <img src="/ozysa-logo.png" alt="Ozysa Ltd" />
               </div>
               <h1 className="hero-title">{t.title}</h1>
               <p className="hero-subtitle">{t.subtitle}</p>
@@ -103,10 +103,10 @@ function Home({ t, lang, setLang, scrolled }) {
             </a>
           </div>
 
-          <div className="scroll-hint">
+          <a className="scroll-hint" href="#about">
             <span>Scroll Down</span>
             <div className="chevron">⌄</div>
-          </div>
+          </a>
         </div>
       </section>
 
@@ -135,6 +135,58 @@ function Home({ t, lang, setLang, scrolled }) {
                 <h3>{t.positionTitle}</h3>
                 <p><strong>{t.chairman}</strong> - Ozysa Ltd</p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Education Journey Section */}
+      <section id="education-journey" className="edu-journey">
+        <div className="container">
+          <h2 className="section-title">Education Journey</h2>
+          <div className="edu-wrap">
+            <svg className="edu-path" viewBox="0 0 600 900" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="glow" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0%" stopColor="#22d3ee"/>
+                  <stop offset="100%" stopColor="#8b5cf6"/>
+                </linearGradient>
+              </defs>
+              <path d="M300 0 C300 120 270 220 270 300 C270 420 360 520 300 640 C260 720 250 780 250 860" stroke="url(#glow)" strokeWidth="6" fill="none" strokeLinecap="round" />
+              <path d="M300 0 C300 120 270 220 270 300 C270 420 360 520 300 640 C260 720 250 780 250 860" stroke="rgba(34,211,238,0.4)" strokeWidth="14" fill="none" strokeLinecap="round" filter="blur(2px)" />
+            </svg>
+
+            <div className="edu-node edu-node--top">
+              <div className="node-ring"></div>
+              <div className="node-dot"></div>
+            </div>
+
+            <div className="edu-card edu-card--bsc">
+              <h3>B.Sc. in Software Engineering</h3>
+              <p>Daffodil International University, Ashulia</p>
+              <p className="edu-time">2023 to Now</p>
+            </div>
+
+            <div className="edu-node edu-node--mid">
+              <div className="node-ring ring-blue"></div>
+              <div className="node-dot dot-blue"></div>
+            </div>
+
+            <div className="edu-card edu-card--hsc">
+              <h3>Higher Secondary School Certificate (HSC)</h3>
+              <p>Sristy College of Tangail</p>
+              <p className="edu-time">2019 to 2021</p>
+            </div>
+
+            <div className="edu-node edu-node--bottom">
+              <div className="node-ring ring-blue"></div>
+              <div className="node-dot dot-blue"></div>
+            </div>
+
+            <div className="edu-card edu-card--ssc">
+              <h3>Secondary School Certificate (SSC)</h3>
+              <p>Sristy Academic School, Tangail</p>
+              <p className="edu-time">2017 to 2019</p>
             </div>
           </div>
         </div>
