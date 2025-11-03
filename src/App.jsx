@@ -166,32 +166,38 @@ function Home({ t, lang, setLang, scrolled }) {
           <h2 className="section-title">{t.contactTitle}</h2>
           <div className="contact-content">
             <p className="contact-intro">{t.contactIntro}</p>
-            <div className="contact-info">
-              <div className="contact-item">
-                <div className="contact-icon">✉️</div>
-                <a href="mailto:shawon00650@gmail.com">shawon00650@gmail.com</a>
+
+            <div className="contact-cards">
+              <div className="contact-card">
+                <div className="contact-card-icon">📧</div>
+                <div className="contact-card-label">EMAIL</div>
+                <a className="contact-card-value" href="mailto:shawon00650@gmail.com">shawon00650@gmail.com</a>
               </div>
-              <div className="contact-item">
-                <div className="contact-icon">📞</div>
-                <a href="tel:+8801891484334">+880 1891-484334</a>
+              <div className="contact-card">
+                <div className="contact-card-icon">📞</div>
+                <div className="contact-card-label">PHONE</div>
+                <a className="contact-card-value" href="tel:+8801891484334">+880 1891-484334</a>
               </div>
             </div>
-            <div className="social-links">
+
+            <div className="social-icons">
               <a 
                 href="https://www.linkedin.com/in/shawon06" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="social-link linkedin"
+                className="icon-btn linkedin"
+                aria-label="LinkedIn"
               >
-                <span>🔗</span> LinkedIn
+                in
               </a>
               <a 
                 href="https://www.facebook.com/ShawonKompany" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="social-link facebook"
+                className="icon-btn facebook"
+                aria-label="Facebook"
               >
-                <span>👥</span> Facebook
+                f
               </a>
             </div>
           </div>
