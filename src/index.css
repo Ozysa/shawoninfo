@@ -7,9 +7,7 @@
 }
 
 :root {
-  --primary-color: #3d3e7e;
   --primary-dark: #7977a8;
-  --primary-light: #818cf8;
   --secondary-color: #8b5cf6;
   --accent-color: #ec4899;
   --text-dark: #1e293b;
@@ -24,9 +22,8 @@
 }
 
 :root.dark {
-  --primary-color: #8b5cf6;
+  
   --primary-dark: #7c3aed;
-  --primary-light: #a78bfa;
   --secondary-color: #22d3ee;
   --accent-color: #f472b6;
   --text-dark: #e5e7eb;
