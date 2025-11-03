@@ -128,32 +128,83 @@
   pointer-events: none;
 }
 
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .hero-content {
-  max-width: 900px;
-  padding: 3rem 2rem;
+  padding: 2rem 0;
   position: relative;
   z-index: 1;
+  text-align: left;
 }
-.avatar {
-  width: 160px;
-  height: 160px;
-  margin: 0 auto 1.5rem auto;
-  border-radius: 50%;
-  padding: 4px;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+
+.hero-avatar-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.avatar-square {
+  position: relative;
+  width: 380px;
+  height: 380px;
+  border-radius: 24px;
   overflow: hidden;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  padding: 6px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+  animation: float-avatar 6s ease-in-out infinite;
+  transform-style: preserve-3d;
 }
-.avatar img {
+
+.avatar-square img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  background: #0b1220;
-  border-radius: 50%;
+  object-fit: cover;
+  border-radius: 20px;
   display: block;
 }
-:root.dark .avatar {
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+
+.avatar-glow {
+  position: absolute;
+  inset: -30px;
+  border-radius: 32px;
+  background: radial-gradient(600px 400px at 50% 50%, rgba(139, 92, 246, 0.3), transparent 70%),
+              radial-gradient(400px 300px at 30% 70%, rgba(99, 102, 241, 0.25), transparent 60%);
+  filter: blur(20px);
+  z-index: -1;
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+@keyframes float-avatar {
+  0%, 100% {
+    transform: translateY(0) rotateY(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotateY(5deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+:root.dark .avatar-square {
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
 }
 
 .hero-title {
@@ -1126,76 +1177,29 @@ html[dir='rtl'] .contact-item { direction: rtl; }
 
 .icon-btn:hover { transform: translateY(-4px); }
 
+@media (max-width: 992px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .hero-content {
+    text-align: center;
+  }
+  
+  .avatar-square {
+    width: 280px;
+    height: 280px;
+  }
+}
+
 @media (max-width: 768px) {
   .contact-cards { grid-template-columns: 1fr; }
-}
-
-/* Hero grid with feature card */
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 3rem;
-  align-items: center;
-}
-
-.hero-card {
-  position: relative;
-  display: block;
-  padding: 2.2rem;
-  border-radius: 24px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.35);
-  text-decoration: none;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-}
-:root.dark .hero-card { background: rgba(15, 22, 41, 0.6); border-color: rgba(167,139,250,0.12); }
-
-.hero-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 50px 120px rgba(0,0,0,0.45);
-  border-color: rgba(167,139,250,0.35);
-}
-
-.hero-card-icon {
-  width: 72px;
-  height: 72px;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  color: #fff;
-  margin: 0 auto 1rem auto;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  box-shadow: var(--shadow-lg);
-}
-
-.hero-card-title {
-  text-align: center;
-  color: #fff;
-  font-weight: 800;
-  font-size: 1.6rem;
-  letter-spacing: 0.3px;
-}
-
-.hero-card-sub {
-  text-align: center;
-  color: rgba(255,255,255,0.85);
-  margin-top: 0.6rem;
-  font-weight: 600;
-}
-
-.hero-card-glow {
-  position: absolute;
-  inset: -20px;
-  border-radius: 28px;
-  background: radial-gradient(500px 300px at 30% 20%, rgba(139,92,246,0.15), transparent 60%),
-              radial-gradient(400px 260px at 80% 90%, rgba(99,102,241,0.12), transparent 60%);
-  filter: blur(10px);
-  z-index: -1;
+  
+  .avatar-square {
+    width: 240px;
+    height: 240px;
+  }
 }
 
 .scroll-hint {
@@ -1206,6 +1210,13 @@ html[dir='rtl'] .contact-item { direction: rtl; }
   margin-top: 2.5rem;
   gap: 0.3rem;
   opacity: 0.85;
+  text-decoration: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  animation: fadeInUp 1s ease 1s both;
+}
+.scroll-hint:hover {
+  opacity: 1;
+  transform: translateY(5px);
 }
 .scroll-hint span { color: rgba(255,255,255,0.8); font-size: 0.95rem; }
 .chevron { color: rgba(255,255,255,0.9); animation: bounce 1.6s infinite; }
@@ -1215,10 +1226,6 @@ html[dir='rtl'] .contact-item { direction: rtl; }
   50% { transform: translateY(6px); }
 }
 
-@media (max-width: 992px) {
-  .hero-grid { grid-template-columns: 1fr; }
-  .hero-card { order: 2; }
-}
 
 /* Education Journey */
 .edu-journey {
@@ -1229,7 +1236,8 @@ html[dir='rtl'] .contact-item { direction: rtl; }
 
 .edu-wrap {
   position: relative;
-  min-height: 620px;
+  min-height: 900px;
+  padding-bottom: 2rem;
 }
 
 .edu-path {
@@ -1238,7 +1246,7 @@ html[dir='rtl'] .contact-item { direction: rtl; }
   top: -40px;
   transform: translateX(-50%);
   width: 600px;
-  height: 920px;
+  height: 1000px;
   opacity: 0.9;
   pointer-events: none;
 }
@@ -1286,10 +1294,10 @@ html[dir='rtl'] .contact-item { direction: rtl; }
 .edu-card p { color: rgba(255,255,255,0.85); margin: 0.25rem 0; }
 .edu-time { color: #cbd5e1; opacity: 0.9; font-weight: 600; }
 
-.edu-card--bsc { left: calc(50% - 20px); top: 210px; }
-.edu-card--hsc { right: calc(50% - 20px); top: 520px; }
-.edu-node--bottom { top: 780px; left: calc(50% - 10px); }
-.edu-card--ssc { left: calc(50% - 20px); top: 800px; }
+.edu-card--bsc { left: calc(50% + 40px); top: 180px; }
+.edu-card--hsc { right: calc(50% + 40px); top: 480px; }
+.edu-node--bottom { top: 750px; left: calc(50% - 10px); }
+.edu-card--ssc { left: calc(50% + 40px); top: 760px; }
 
 @media (max-width: 992px) {
   .edu-path { display: none; height: auto; }

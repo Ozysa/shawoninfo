@@ -64,6 +64,23 @@ const i18n = {
 }
 
 function Home({ t, lang, setLang, scrolled }) {
+  const [showScrollHint, setShowScrollHint] = React.useState(true)
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+      const windowHeight = window.innerHeight
+      const documentHeight = document.documentElement.scrollHeight
+      // Show hint only when near top of page and there's more content to scroll
+      const shouldShow = scrollY < windowHeight * 0.5 && documentHeight > windowHeight * 1.2
+      setShowScrollHint(shouldShow)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    handleScroll() // Check on mount
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const skills = [
     { name: 'Leadership', slug: 'leadership', icon: '👔' },
     { name: 'Business Strategy', slug: 'business-strategy', icon: '📊' },
@@ -83,9 +100,6 @@ function Home({ t, lang, setLang, scrolled }) {
         <div className="container">
           <div className="hero-grid">
             <div className="hero-content">
-              <div className="avatar">
-                <img src="/ozysa-logo.png" alt="Ozysa Ltd" />
-              </div>
               <h1 className="hero-title">{t.title}</h1>
               <p className="hero-subtitle">{t.subtitle}</p>
               <p className="hero-description">{t.intro}</p>
@@ -95,18 +109,20 @@ function Home({ t, lang, setLang, scrolled }) {
               </div>
             </div>
 
-            <a className="hero-card" href="https://www.ozysa.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Ozysa Ltd">
-              <div className="hero-card-icon">💼</div>
-              <div className="hero-card-title">Ozysa Ltd</div>
-              <div className="hero-card-sub">Leading Digital Innovation</div>
-              <div className="hero-card-glow" aria-hidden="true"></div>
-            </a>
+            <div className="hero-avatar-wrapper">
+              <div className="avatar-square">
+                <img src="/profile.jpg" alt={t.title} />
+                <div className="avatar-glow" aria-hidden="true"></div>
+              </div>
+            </div>
           </div>
 
-          <a className="scroll-hint" href="#about">
-            <span>Scroll Down</span>
-            <div className="chevron">⌄</div>
-          </a>
+          {showScrollHint && (
+            <a className="scroll-hint" href="#about">
+              <span>Scroll Down</span>
+              <div className="chevron">⌄</div>
+            </a>
+          )}
         </div>
       </section>
 
@@ -145,15 +161,16 @@ function Home({ t, lang, setLang, scrolled }) {
         <div className="container">
           <h2 className="section-title">Education Journey</h2>
           <div className="edu-wrap">
-            <svg className="edu-path" viewBox="0 0 600 900" preserveAspectRatio="none" aria-hidden="true">
+            <svg className="edu-path" viewBox="0 0 600 1000" preserveAspectRatio="none" aria-hidden="true">
               <defs>
                 <linearGradient id="glow" x1="0" x2="1" y1="0" y2="1">
                   <stop offset="0%" stopColor="#22d3ee"/>
+                  <stop offset="50%" stopColor="#6366f1"/>
                   <stop offset="100%" stopColor="#8b5cf6"/>
                 </linearGradient>
               </defs>
-              <path d="M300 0 C300 120 270 220 270 300 C270 420 360 520 300 640 C260 720 250 780 250 860" stroke="url(#glow)" strokeWidth="6" fill="none" strokeLinecap="round" />
-              <path d="M300 0 C300 120 270 220 270 300 C270 420 360 520 300 640 C260 720 250 780 250 860" stroke="rgba(34,211,238,0.4)" strokeWidth="14" fill="none" strokeLinecap="round" filter="blur(2px)" />
+              <path d="M300 0 C300 120 340 180 340 260 C340 380 260 480 300 600 C280 680 280 730 280 780 C280 820 300 900 300 980" stroke="url(#glow)" strokeWidth="6" fill="none" strokeLinecap="round" />
+              <path d="M300 0 C300 120 340 180 340 260 C340 380 260 480 300 600 C280 680 280 730 280 780 C280 820 300 900 300 980" stroke="rgba(34,211,238,0.4)" strokeWidth="14" fill="none" strokeLinecap="round" filter="blur(2px)" />
             </svg>
 
             <div className="edu-node edu-node--top">
