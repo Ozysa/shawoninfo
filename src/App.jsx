@@ -37,7 +37,7 @@ const i18n = {
     skillsTitle: 'দক্ষতা',
     projectsTitle: 'প্রোজেক্ট',
     contactTitle: 'যোগাযোগ করুন',
-    contactIntro: 'নতুন সুযোগ, বিকাশকারী প্রকল্প বা সহযোগিতা নিয়ে আলোচনা করতে সর্বদা উন্মুক্ত। নির্দ্বিধায় যোগাযোগ করুন!',
+    contactIntro: 'নতুন সুযোগ, উদ্ভাবনী প্রকল্প বা সহযোগিতা নিয়ে আলোচনা করতে সর্বদা উন্মুক্ত। নির্দ্বিধায় যোগাযোগ করুন!',
     live: 'লাইভ'
   },
   ur: {
@@ -63,23 +63,19 @@ const i18n = {
 
 function App() {
   const [scrolled, setScrolled] = useState(false)
-  const [theme, setTheme] = useState('system')
   const [lang, setLang] = useState('en')
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'system'
     const savedLang = localStorage.getItem('lang') || 'en'
-    setTheme(savedTheme)
     setLang(savedLang)
   }, [])
 
+  // Force dark mode
   useEffect(() => {
     const root = document.documentElement
-    root.classList.remove('dark', 'light')
-    if (theme === 'dark') root.classList.add('dark')
-    if (theme === 'light') root.classList.add('light')
-    localStorage.setItem('theme', theme)
-  }, [theme])
+    root.classList.add('dark')
+    root.classList.remove('light')
+  }, [])
 
   useEffect(() => {
     document.documentElement.setAttribute('dir', lang === 'ur' ? 'rtl' : 'ltr')
@@ -125,14 +121,6 @@ function App() {
     }
   ]
 
-  const nextTheme = () => {
-    if (theme === 'system') return setTheme('dark')
-    if (theme === 'dark') return setTheme('light')
-    return setTheme('system')
-  }
-
-  const themeLabel = theme === 'system' ? 'System' : theme === 'dark' ? 'Dark' : 'Light'
-
   return (
     <div className="App">
       <div className="animated-bg" aria-hidden="true"></div>
@@ -153,12 +141,6 @@ function App() {
               <button className={`lang-btn ${lang === 'bn' ? 'active' : ''}`} onClick={() => setLang('bn')}>BN</button>
               <button className={`lang-btn ${lang === 'ur' ? 'active' : ''}`} onClick={() => setLang('ur')}>UR</button>
             </div>
-            <button className="theme-toggle" onClick={nextTheme} aria-label="Toggle theme">
-              <span className="theme-icon" role="img" aria-hidden="true">
-                {theme === 'dark' ? '🌙' : theme === 'light' ? '☀️' : '🖥️'}
-              </span>
-              <span className="theme-text">{themeLabel}</span>
-            </button>
           </div>
         </div>
       </nav>
@@ -216,7 +198,7 @@ function App() {
         <div className="container">
           <h2 className="section-title">{t.skillsTitle}</h2>
           <div className="skills-grid">
-            {skills.map((skill, index) => {
+            {['Leadership','Business Strategy','Digital Transformation'].map((skill, index) => {
               const icons = ['👔', '📊', '🚀'];
               return (
                 <div key={index} className="skill-card">
