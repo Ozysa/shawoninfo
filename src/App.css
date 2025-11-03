@@ -134,6 +134,25 @@
   position: relative;
   z-index: 1;
 }
+.avatar {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 1.5rem auto;
+  border-radius: 50%;
+  padding: 4px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+:root.dark .avatar {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
 
 .hero-title {
   font-family: 'Playfair Display', serif;
@@ -469,6 +488,9 @@ section {
 }
 
 .project-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
   background: var(--bg-white);
   padding: 2.5rem;
   border-radius: 20px;
@@ -481,7 +503,6 @@ section {
 :root.dark .project-card {
   background: #0f1629;
   border: 1px solid rgba(167, 139, 250, 0.12);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
 :root.dark .project-card h3 {
   color: var(--primary-light);
@@ -820,6 +841,11 @@ section {
 
   .container {
     padding: 0 1.5rem;
+  }
+  .avatar {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 1rem;
   }
 }
 

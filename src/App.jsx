@@ -38,17 +38,20 @@ function App() {
     {
       name: 'Ozysa Ltd',
       description: 'E-commerce platform connecting local businesses and customers',
-      icon: '🛒'
+      icon: '🛒',
+      url: '#'
     },
     {
       name: 'Marketing Academy',
       description: 'Offline and online courses for business owners',
-      icon: '🎓'
+      icon: '🎓',
+      url: '#'
     },
     {
       name: 'Star Face',
       description: 'Creative brand promoting innovation in local markets',
-      icon: '⭐'
+      icon: '⭐',
+      url: '#'
     }
   ]
 
@@ -87,6 +90,9 @@ function App() {
       <section id="home" className="hero">
         <div className="container">
           <div className="hero-content">
+            <div className="avatar">
+              <img src="/profile.jpg" alt="Shawon Ahmed" />
+            </div>
             <h1 className="hero-title">Shawon Ahmed</h1>
             <p className="hero-subtitle">Chairman of Ozysa Ltd</p>
             <p className="hero-description">
@@ -153,11 +159,11 @@ function App() {
           <h2 className="section-title">Projects</h2>
           <div className="projects-grid">
             {projects.map((project, index) => (
-              <div key={index} className="project-card">
+              <a key={index} className="project-card" href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name}`}>
                 <div style={{fontSize: '3rem', marginBottom: '1rem', display: 'inline-block'}}>{project.icon}</div>
                 <h3>{project.name}</h3>
                 <p>{project.description}</p>
-              </div>
+              </a>
             ))}
           </div>
         </div>
