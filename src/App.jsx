@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { Routes, Route, Link } from 'react-router-dom'
 import './App.css'
+import SkillDetail from './pages/SkillDetail'
 
 const i18n = {
   en: {
@@ -61,90 +63,21 @@ const i18n = {
   }
 }
 
-function App() {
-  const [scrolled, setScrolled] = useState(false)
-  const [lang, setLang] = useState('en')
-
-  useEffect(() => {
-    const savedLang = localStorage.getItem('lang') || 'en'
-    setLang(savedLang)
-  }, [])
-
-  // Force dark mode
-  useEffect(() => {
-    const root = document.documentElement
-    root.classList.add('dark')
-    root.classList.remove('light')
-  }, [])
-
-  useEffect(() => {
-    document.documentElement.setAttribute('dir', lang === 'ur' ? 'rtl' : 'ltr')
-    localStorage.setItem('lang', lang)
-  }, [lang])
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 50
-      setScrolled(isScrolled)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  const t = i18n[lang]
-
+function Home({ t, lang, setLang, scrolled }) {
   const skills = [
-    'Leadership',
-    'Business Strategy',
-    'Digital Transformation'
+    { name: 'Leadership', slug: 'leadership', icon: '👔' },
+    { name: 'Business Strategy', slug: 'business-strategy', icon: '📊' },
+    { name: 'Digital Transformation', slug: 'digital-transformation', icon: '🚀' }
   ]
 
   const projects = [
-    {
-      name: 'Ozysa Ltd',
-      description: 'E-commerce platform connecting local businesses and customers',
-      icon: '🛒',
-      url: '#'
-    },
-    {
-      name: 'Marketing Academy',
-      description: 'Offline and online courses for business owners',
-      icon: '🎓',
-      url: '#'
-    },
-    {
-      name: 'Star Face',
-      description: 'Creative brand promoting innovation in local markets',
-      icon: '⭐',
-      url: '#'
-    }
+    { name: 'Ozysa Ltd', description: 'E-commerce platform connecting local businesses and customers', icon: '🛒', url: '#' },
+    { name: 'Marketing Academy', description: 'Offline and online courses for business owners', icon: '🎓', url: '#' },
+    { name: 'Star Face', description: 'Creative brand promoting innovation in local markets', icon: '⭐', url: '#' }
   ]
 
   return (
-    <div className="App">
-      <div className="animated-bg" aria-hidden="true"></div>
-      {/* Navigation */}
-      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-        <div className="container">
-          <div className="nav-brand">{t.title}</div>
-          <ul className="nav-links">
-            <li><a href="#home">{t.nav.home}</a></li>
-            <li><a href="#about">{t.nav.about}</a></li>
-            <li><a href="#skills">{t.nav.skills}</a></li>
-            <li><a href="#projects">{t.nav.projects}</a></li>
-            <li><a href="#contact">{t.nav.contact}</a></li>
-          </ul>
-          <div className="toggles">
-            <div className="lang-toggle" role="group" aria-label="Language selector">
-              <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>EN</button>
-              <button className={`lang-btn ${lang === 'bn' ? 'active' : ''}`} onClick={() => setLang('bn')}>BN</button>
-              <button className={`lang-btn ${lang === 'ur' ? 'active' : ''}`} onClick={() => setLang('ur')}>UR</button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
+    <>
       {/* Hero Section */}
       <section id="home" className="hero">
         <div className="container">
@@ -198,15 +131,12 @@ function App() {
         <div className="container">
           <h2 className="section-title">{t.skillsTitle}</h2>
           <div className="skills-grid">
-            {['Leadership','Business Strategy','Digital Transformation'].map((skill, index) => {
-              const icons = ['👔', '📊', '🚀'];
-              return (
-                <div key={index} className="skill-card">
-                  <div style={{fontSize: '3rem', marginBottom: '1rem'}}>{icons[index]}</div>
-                  <h3>{skill}</h3>
-                </div>
-              );
-            })}
+            {skills.map((skill, index) => (
+              <Link key={skill.slug} to={`/skills/${skill.slug}`} className="skill-card" aria-label={`Open ${skill.name}`}>
+                <div style={{fontSize: '3rem', marginBottom: '1rem'}}>{skill.icon}</div>
+                <h3>{skill.name}</h3>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -267,8 +197,66 @@ function App() {
           </div>
         </div>
       </section>
+    </>
+  )
+}
 
-      {/* Footer */}
+function App() {
+  const [scrolled, setScrolled] = useState(false)
+  const [lang, setLang] = useState('en')
+
+  useEffect(() => {
+    const savedLang = localStorage.getItem('lang') || 'en'
+    setLang(savedLang)
+  }, [])
+
+  useEffect(() => {
+    const root = document.documentElement
+    root.classList.add('dark')
+    root.classList.remove('light')
+  }, [])
+
+  useEffect(() => {
+    document.documentElement.setAttribute('dir', lang === 'ur' ? 'rtl' : 'ltr')
+    localStorage.setItem('lang', lang)
+  }, [lang])
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const t = i18n[lang]
+
+  return (
+    <div className="App">
+      <div className="animated-bg" aria-hidden="true"></div>
+      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+        <div className="container">
+          <div className="nav-brand">{t.title}</div>
+          <ul className="nav-links">
+            <li><a href="/">{t.nav.home}</a></li>
+            <li><a href="/#about">{t.nav.about}</a></li>
+            <li><a href="/#skills">{t.nav.skills}</a></li>
+            <li><a href="/#projects">{t.nav.projects}</a></li>
+            <li><a href="/#contact">{t.nav.contact}</a></li>
+          </ul>
+          <div className="toggles">
+            <div className="lang-toggle" role="group" aria-label="Language selector">
+              <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>EN</button>
+              <button className={`lang-btn ${lang === 'bn' ? 'active' : ''}`} onClick={() => setLang('bn')}>BN</button>
+              <button className={`lang-btn ${lang === 'ur' ? 'active' : ''}`} onClick={() => setLang('ur')}>UR</button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home t={t} lang={lang} setLang={setLang} scrolled={scrolled} />} />
+        <Route path="/skills/:slug" element={<SkillDetail />} />
+      </Routes>
+
       <footer className="footer">
         <div className="container">
           <p>&copy; 2024 {t.title}. All rights reserved.</p>

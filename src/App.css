@@ -987,3 +987,51 @@ html[dir='rtl'] .contact-item { direction: rtl; }
   color: var(--text-dark);
   border-color: rgba(148, 163, 184, 0.15);
 }
+
+.skill-detail {
+  background: var(--bg-light);
+  padding: 120px 0 80px 0;
+}
+:root.dark .skill-detail { background: #0b1220; }
+
+.page { padding: 120px 0 80px 0; }
+
+.detail-header { text-align: center; max-width: 900px; margin: 0 auto 2rem; }
+.detail-intro {
+  color: var(--text-gray);
+  font-size: 1.15rem;
+  line-height: 1.9;
+  margin-top: -1rem;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.detail-card {
+  background: var(--bg-white);
+  border-radius: 16px;
+  padding: 1.5rem 1.75rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(99,102,241,0.1);
+}
+:root.dark .detail-card {
+  background: #0f1629;
+  border-color: rgba(167,139,250,0.12);
+}
+
+.detail-card h2 {
+  color: var(--primary-light);
+  margin-bottom: 0.5rem;
+}
+.detail-card p { color: var(--text-gray); }
+
+.checklist { list-style: none; padding: 0; margin: 0; }
+.checklist li { margin: 0.5rem 0; color: var(--text-dark); }
+
+@media (max-width: 992px) {
+  .detail-grid { grid-template-columns: 1fr; }
+}
