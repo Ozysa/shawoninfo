@@ -3,7 +3,6 @@ import { Routes, Route, Link } from 'react-router-dom'
 import './App.css'
 import SkillDetail from './pages/SkillDetail'
 import SplashScreen from './components/SplashScreen'
-import supabase from './supabaseClient'
 
 const i18n = {
   en: {
@@ -67,14 +66,6 @@ const i18n = {
 
 function Home({ t, lang, setLang, scrolled }) {
   const [showScrollHint, setShowScrollHint] = React.useState(true)
-  const [formData, setFormData] = React.useState({
-    name: '',
-    email: '',
-    message: ''
-  })
-  const [isSubmitting, setIsSubmitting] = React.useState(false)
-  const [submitStatus, setSubmitStatus] = React.useState(null) // 'success' or 'error'
-  const [submitMessage, setSubmitMessage] = React.useState('')
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -91,59 +82,6 @@ function Home({ t, lang, setLang, scrolled }) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
-    // Clear status when user starts typing again
-    if (submitStatus) {
-      setSubmitStatus(null)
-      setSubmitMessage('')
-    }
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setSubmitStatus(null)
-    setSubmitMessage('')
-
-    try {
-      const { data, error } = await supabase
-        .from('contacts')
-        .insert([
-          {
-            name: formData.name.trim(),
-            email: formData.email.trim(),
-            message: formData.message.trim()
-          }
-        ])
-        .select()
-
-      if (error) {
-        throw error
-      }
-
-      // Success
-      setSubmitStatus('success')
-      setSubmitMessage('Message sent successfully! I\'ll get back to you soon.')
-      setFormData({ name: '', email: '', message: '' })
-      
-      // Clear success message after 5 seconds
-      setTimeout(() => {
-        setSubmitStatus(null)
-        setSubmitMessage('')
-      }, 5000)
-    } catch (error) {
-      console.error('Error submitting form:', error)
-      setSubmitStatus('error')
-      setSubmitMessage('Failed to send message. Please try again later.')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
 
   const skills = [
     { name: 'Leadership', slug: 'leadership', icon: '👔' },
@@ -303,65 +241,6 @@ function Home({ t, lang, setLang, scrolled }) {
           <h2 className="section-title">{t.contactTitle}</h2>
           <div className="contact-content">
             <p className="contact-intro">{t.contactIntro}</p>
-
-            <div className="contact-form-wrapper">
-              <form className="contact-form" onSubmit={handleSubmit}>
-                <h3 className="form-title">Send a Message</h3>
-                
-                {submitStatus && (
-                  <div className={`form-status ${submitStatus === 'success' ? 'success' : 'error'}`}>
-                    {submitMessage}
-                  </div>
-                )}
-                
-                <div className="form-group">
-                  <label htmlFor="name">Your Name</label>
-                  <input 
-                    type="text" 
-                    id="name" 
-                    name="name" 
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="Enter your name"
-                    required
-                    disabled={isSubmitting}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="email">Email Address</label>
-                  <input 
-                    type="email" 
-                    id="email" 
-                    name="email" 
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="Enter your email"
-                    required
-                    disabled={isSubmitting}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="message">Message</label>
-                  <textarea 
-                    id="message" 
-                    name="message" 
-                    rows="6"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    placeholder="Enter your message"
-                    required
-                    disabled={isSubmitting}
-                  ></textarea>
-                </div>
-
-                <button type="submit" className="submit-btn" disabled={isSubmitting}>
-                  <span className="submit-icon">✈️</span>
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
-                </button>
-              </form>
-            </div>
 
             <div className="contact-cards">
               <div className="contact-card">
