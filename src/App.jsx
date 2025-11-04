@@ -18,7 +18,10 @@ const i18n = {
     university: 'Daffodil International University',
     positionTitle: 'Current Position',
     chairman: 'Chairman',
-    skillsTitle: 'Skills',
+    skillsTitle: 'Coach',
+    techSkillsTitle: 'Technical Skills',
+    servicesTitle: 'Services',
+    servicesIntro: 'These are some of the services I offer. Reach out to me if I can help you with any!',
     projectsTitle: 'Projects',
     contactTitle: 'Get In Touch',
     contactIntro: "I'm always open to discussing new opportunities, innovative projects, or potential collaborations. Feel free to reach out!",
@@ -37,7 +40,10 @@ const i18n = {
     university: 'ড্যাফোডিল ইন্টারন্যাশনাল ইউনিভার্সিটি',
     positionTitle: 'বর্তমান পদ',
     chairman: 'চেয়ারম্যান',
-    skillsTitle: 'দক্ষতা',
+    skillsTitle: 'কোচ',
+    techSkillsTitle: 'প্রযুক্তিগত দক্ষতা',
+    servicesTitle: 'সেবা',
+    servicesIntro: 'এগুলি আমার কিছু সেবা। আমি যদি আপনার সাহায্য করতে পারি তাহলে যোগাযোগ করুন!',
     projectsTitle: 'প্রোজেক্ট',
     contactTitle: 'যোগাযোগ করুন',
     contactIntro: 'নতুন সুযোগ, উদ্ভাবনী প্রকল্প বা সহযোগিতা নিয়ে আলোচনা করতে সর্বদা উন্মুক্ত। নির্দ্বিধায় যোগাযোগ করুন!',
@@ -56,7 +62,10 @@ const i18n = {
     university: 'ڈیفودیل انٹرنیشنل یونیورسٹی',
     positionTitle: 'موجودہ عہدہ',
     chairman: 'چیئرمین',
-    skillsTitle: 'مہارتیں',
+    skillsTitle: 'کوچ',
+    techSkillsTitle: 'تکنیکی مہارتیں',
+    servicesTitle: 'خدمات',
+    servicesIntro: 'یہ میری کچھ خدمات ہیں۔ اگر میں آپ کی مدد کر سکتا ہوں تو مجھ سے رابطہ کریں!',
     projectsTitle: 'پراجیکٹس',
     contactTitle: 'رابطہ کریں',
     contactIntro: 'نئے مواقع، جدید پراجیکٹس یا تعاون پر بات کے لیے ہمیشہ دستیاب ہوں۔ بلا جھجھک رابطہ کریں!',
@@ -87,6 +96,30 @@ function Home({ t, lang, setLang, scrolled }) {
     { name: 'Leadership', slug: 'leadership', icon: '👔' },
     { name: 'Business Strategy', slug: 'business-strategy', icon: '📊' },
     { name: 'Digital Transformation', slug: 'digital-transformation', icon: '🚀' }
+  ]
+
+  const techSkills = [
+    { name: 'Git', icon: '🐙', color: '#f05032' },
+    { name: 'HTML', icon: '📄', color: '#e34f26' },
+    { name: 'CSS', icon: '🎨', color: '#1572b6' },
+    { name: 'Javascript', icon: '⚡', color: '#f7df1e' },
+    { name: 'Bootstrap', icon: '💎', color: '#7952b3' },
+    { name: 'Tailwind', icon: '🌊', color: '#06b6d4' },
+    { name: 'React', icon: '⚛️', color: '#61dafb' },
+    { name: 'Node.js', icon: '🟢', color: '#339933' },
+    { name: 'MongoDB', icon: '🍃', color: '#47a248' },
+    { name: 'Python', icon: '🐍', color: '#3776ab' },
+    { name: 'Vercel', icon: '▲', color: '#000000' }
+  ]
+
+  const services = [
+    { name: 'Content Writing', icon: '✏️' },
+    { name: 'Email Marketing', icon: '📧' },
+    { name: 'Web Design', icon: '</>' },
+    { name: 'Photography', icon: '📷' },
+    { name: 'Video Editing', icon: '🎬' },
+    { name: 'Ebook Writing', icon: '📱' },
+    { name: 'Blog Posting', icon: '📰' }
   ]
 
   const projects = [
@@ -224,10 +257,37 @@ function Home({ t, lang, setLang, scrolled }) {
           <div className="skills-grid">
             {skills.map((skill, index) => (
               <Link key={skill.slug} to={`/skills/${skill.slug}`} className="skill-card" aria-label={`Open ${skill.name}`}>
-                <div style={{fontSize: '3rem', marginBottom: '1rem'}}>{skill.icon}</div>
+                <div style={{fontSize: '3rem', marginBottom: '1rem', display: 'inline-block'}}>{skill.icon}</div>
                 <h3>{skill.name}</h3>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Technical Skills Section */}
+      <section id="tech-skills" className="tech-skills">
+        <div className="container">
+          <h2 className="tech-skills-title">{t.techSkillsTitle}</h2>
+          <div className="tech-skills-scroll">
+            <div className="tech-skills-grid">
+              {techSkills.map((tech, index) => (
+                <div key={index} className="tech-skill-card">
+                  <div className="tech-skill-icon" style={{ color: tech.color }}>
+                    {tech.icon}
+                  </div>
+                  <h3>{tech.name}</h3>
+                </div>
+              ))}
+              {techSkills.map((tech, index) => (
+                <div key={`duplicate-${index}`} className="tech-skill-card">
+                  <div className="tech-skill-icon" style={{ color: tech.color }}>
+                    {tech.icon}
+                  </div>
+                  <h3>{tech.name}</h3>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -243,6 +303,22 @@ function Home({ t, lang, setLang, scrolled }) {
                 <h3>{project.name}</h3>
                 <p>{project.description}</p>
               </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="services">
+        <div className="container">
+          <h2 className="section-title">{t.servicesTitle}</h2>
+          <p className="services-intro">{t.servicesIntro}</p>
+          <div className="services-grid">
+            {services.map((service, index) => (
+              <div key={index} className="service-card">
+                <div className="service-icon">{service.icon}</div>
+                <h3>{service.name}</h3>
+              </div>
             ))}
           </div>
         </div>
