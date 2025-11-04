@@ -106,8 +106,21 @@ function Home({ t, lang, setLang, scrolled }) {
               <p className="hero-subtitle">{t.subtitle}</p>
               <p className="hero-description">{t.intro}</p>
               <div className="hero-buttons">
-                <a href="#contact" className="btn btn-primary">{t.getInTouch}</a>
-                <a href="#projects" className="btn btn-secondary">{t.viewProjects}</a>
+                <a href="#projects" className="btn btn-view-projects">
+                  <span>View Projects</span>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="10" height="10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M8 4H14V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M14 4L4 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
+                <a href="#download-cv" className="btn btn-download-cv">
+                  <span>Download CV</span>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 15H15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M9 3V11M9 11L6 8M9 11L12 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
               </div>
             </div>
 
@@ -243,16 +256,16 @@ function Home({ t, lang, setLang, scrolled }) {
             <p className="contact-intro">{t.contactIntro}</p>
 
             <div className="contact-cards">
-              <div className="contact-card">
+              <a href="mailto:shawon00650@gmail.com" className="contact-card" aria-label="Send email to shawon00650@gmail.com">
                 <div className="contact-card-icon">📧</div>
                 <div className="contact-card-label">EMAIL</div>
-                <a className="contact-card-value" href="mailto:shawon00650@gmail.com">shawon00650@gmail.com</a>
-              </div>
-              <div className="contact-card">
+                <div className="contact-card-value">shawon00650@gmail.com</div>
+              </a>
+              <a href="tel:+8801891484334" className="contact-card" aria-label="Call +880 1891-484334">
                 <div className="contact-card-icon">📞</div>
                 <div className="contact-card-label">PHONE</div>
-                <a className="contact-card-value" href="tel:+8801891484334">+880 1891-484334</a>
-              </div>
+                <div className="contact-card-value">+880 1891-484334</div>
+              </a>
             </div>
 
             <div className="social-icons">
