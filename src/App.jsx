@@ -75,6 +75,7 @@ const i18n = {
 
 function Home({ t, lang, setLang, scrolled }) {
   const [showScrollHint, setShowScrollHint] = React.useState(true)
+  const [selectedProject, setSelectedProject] = React.useState(null)
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -90,6 +91,26 @@ function Home({ t, lang, setLang, scrolled }) {
     handleScroll() // Check on mount
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  React.useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && selectedProject) {
+        setSelectedProject(null)
+      }
+    }
+
+    if (selectedProject) {
+      window.addEventListener('keydown', handleEscape)
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleEscape)
+      document.body.style.overflow = ''
+    }
+  }, [selectedProject])
 
 
   const skills = [
@@ -123,9 +144,34 @@ function Home({ t, lang, setLang, scrolled }) {
   ]
 
   const projects = [
-    { name: 'Ozysa Ltd', description: 'E-commerce platform connecting local businesses and customers', icon: '🛒', url: 'https://www.ozysa.com/' },
     { name: 'Marketing Academy', description: 'Offline and online courses for business owners', icon: '🎓', url: '#' },
-    { name: 'Star Face', description: 'Creative brand promoting innovation in local markets', icon: '⭐', url: 'https://www.facebook.com/profile.php?id=61581798161033' }
+    { 
+      name: 'E-commerce', 
+      description: 'Modern online shopping platform with seamless user experience', 
+      icon: '💳', 
+      url: '#',
+      products: [
+        { 
+          name: 'Ozysa Ltd', 
+          description: 'A Bangladeshi e-commerce platform connecting local businesses and customers. A large scale project with integrated authentication system, payment gateway, and many features.', 
+          url: 'https://ozysa.com/',
+          image: '/ozysa-logo.png',
+          technologies: ['React', 'Node.js', 'MongoDB', 'Payment Gateway', 'Authentication', 'E-commerce', 'Responsive Design']
+        },
+        { 
+          name: 'Star Face', 
+          description: 'Creative brand promoting innovation in local markets with modern design and user-friendly interface.',
+          image: '/star-face-logo.png',
+          technologies: ['Next.js', 'TypeScript', 'Tailwind CSS']
+        },
+        { 
+          name: 'Product 3', 
+          description: 'Affordable solution for everyday needs with seamless user experience and modern technology.',
+          technologies: ['React', 'CSS', 'JavaScript']
+        }
+      ]
+    },
+    { name: 'Portfolio', description: 'Personal portfolio website showcasing skills and projects', icon: '💼', url: '#' }
   ]
 
   return (
@@ -298,13 +344,97 @@ function Home({ t, lang, setLang, scrolled }) {
           <h2 className="section-title">{t.projectsTitle}</h2>
           <div className="projects-grid">
             {projects.map((project, index) => (
-              <a key={index} className="project-card" href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name}`}>
-                <div style={{fontSize: '3rem', marginBottom: '1rem', display: 'inline-block'}}>{project.icon}</div>
-                <h3>{project.name}</h3>
-                <p>{project.description}</p>
-              </a>
+              project.products ? (
+                <div 
+                  key={index} 
+                  className="project-card" 
+                  onClick={() => setSelectedProject(project)}
+                  style={{ cursor: 'pointer' }}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      setSelectedProject(project)
+                    }
+                  }}
+                  aria-label={`View ${project.name} products`}
+                >
+                  <div style={{fontSize: '3rem', marginBottom: '1rem', display: 'inline-block'}}>{project.icon}</div>
+                  <h3>{project.name}</h3>
+                  <p>{project.description}</p>
+                  <p style={{ marginTop: '1rem', color: 'var(--primary-color)', fontSize: '0.9rem', fontWeight: 500 }}>
+                    Click to view products →
+                  </p>
+                </div>
+              ) : (
+                <a key={index} className="project-card" href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name}`}>
+                  <div style={{fontSize: '3rem', marginBottom: '1rem', display: 'inline-block'}}>{project.icon}</div>
+                  <h3>{project.name}</h3>
+                  <p>{project.description}</p>
+                </a>
+              )
             ))}
           </div>
+          
+          {/* Products Modal */}
+          {selectedProject && selectedProject.products && (
+            <div className="products-modal-overlay" onClick={() => setSelectedProject(null)}>
+              <div className="products-modal" onClick={(e) => e.stopPropagation()}>
+                <button 
+                  className="products-modal-close" 
+                  onClick={() => setSelectedProject(null)}
+                  aria-label="Close modal"
+                >
+                  ×
+                </button>
+                <div className="products-modal-header">
+                  <div style={{fontSize: '3rem', marginBottom: '1rem', display: 'inline-block'}}>{selectedProject.icon}</div>
+                  <h2>{selectedProject.name}</h2>
+                  <p>{selectedProject.description}</p>
+                </div>
+                <div className="products-modal-content">
+                  <h3 style={{ marginBottom: '1.5rem', color: 'var(--primary-color)' }}>Products</h3>
+                  <div className="project-products">
+                    {selectedProject.products.map((product, pIndex) => {
+                      const CardWrapper = product.url ? 'a' : 'div';
+                      const cardProps = product.url ? {
+                        href: product.url,
+                        target: '_blank',
+                        rel: 'noopener noreferrer',
+                        onClick: (e) => e.stopPropagation()
+                      } : {};
+                      
+                      return (
+                        <CardWrapper
+                          key={pIndex}
+                          className={`product-card-modern ${product.url ? 'product-card-link' : ''}`}
+                          {...cardProps}
+                        >
+                          {product.image && (
+                            <div className="product-card-preview">
+                              <img src={product.image} alt={product.name} />
+                            </div>
+                          )}
+                          <div className="product-card-content">
+                            <h3 className="product-card-title">{product.name}</h3>
+                            <p className="product-card-description">{product.description}</p>
+                            {product.technologies && product.technologies.length > 0 && (
+                              <div className="product-card-tags">
+                                {product.technologies.map((tech, tIndex) => (
+                                  <span key={tIndex} className="product-tag">{tech}</span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </CardWrapper>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
