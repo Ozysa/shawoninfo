@@ -159,7 +159,7 @@ function Home({ t, lang, setLang, scrolled }) {
 
             <div className="hero-avatar-wrapper">
               <div className="avatar-square">
-                <img src="/profile.jpg" alt={t.title} />
+                <img src="/shawon.jpg" alt={t.title} />
                 <div className="avatar-glow" aria-hidden="true"></div>
               </div>
             </div>
